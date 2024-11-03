@@ -7,28 +7,42 @@ function Login({ onLogin }) {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const validateLogin = () => {
+  const validateLogin = async () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // Simple authentication check
-    if (username === 'user' && password === 'password') {
-      setErrorMessage('');
-      onLogin(); // Call the login handler to update `isLoggedIn` in App.jsx
-      navigate('/'); // Redirect to homepage
-    } else {
-      setErrorMessage('Invalid credentials. Please try again.');
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        // Save token to localStorage
+        localStorage.setItem('token', data.token);
+        setErrorMessage(''); // Clear any previous error messages
+        onLogin(); // Update `isLoggedIn` in App.jsx
+        navigate('/'); // Redirect to the homepage
+      } else {
+        setErrorMessage(data.msg || 'Invalid credentials. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setErrorMessage('An error occurred during login. Please try again.');
     }
   };
 
   return (
     <div className="login-page">
-      {/* Logo section (optional) */}
       <div className="logo-container">
         <img src="public/logo.png" alt="SchedUTrack Logo" className="login-logo" />
       </div>
 
-      {/* Login Form */}
       <div className="login-container">
         <form onSubmit={(e) => e.preventDefault()}>
           <h2>Login</h2>

@@ -14,7 +14,7 @@ import AboutUs from './components/AboutUs';
 
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [tasksData, setTasksData] = useState([
         { courseName: "CS 101 - Introduction to Programming", tasks: [] },
@@ -29,7 +29,13 @@ function App() {
     const handleSidebarClose = () => setIsSidebarOpen(false);
 
     const handleLogin = () => setIsLoggedIn(true);
-    const handleLogout = () => setIsLoggedIn(false);
+    
+        const handleLogout = () => {
+            localStorage.removeItem('token'); // Remove token on logout
+            setIsLoggedIn(false);
+        };
+
+    
 
     // Function to add a new task to a specific course
     const addTask = (courseName, task) => {
