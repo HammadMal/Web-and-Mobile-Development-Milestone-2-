@@ -1,0 +1,110 @@
+/* src/styles/task.css */
+
+/* ======================= Global Styles for Tasks Page ======================= */
+.tasks-page {
+    background-color: #f0e8ff;/* Lighter background for a softer appearance */
+    min-height: 100vh;
+    padding-top: 90px; /* Add top padding to account for navbar height */
+    padding-bottom: 12px; /* Bottom padding for spacing */
+    display: flex;
+    justify-content: center;
+}  
+
+/* ======================= Tasks Section Styles ======================= */
+.tasks-page .tasks-section {
+    background-color: #fafafa; /* Subtle contrast */
+    padding: 300px;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 100px;
+}
+
+/* Section Title Styling */
+.tasks-page .section-title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #6a11cb; /* Darker, muted theme color */
+    font-weight: 600;
+}
+
+/* Task Group Container */
+.tasks-page .tasks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; /* Space between task groups */
+    width: 100%;
+}
+
+/* Task Group Styles */
+.tasks-page .task-group {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Task Header Styles */
+.tasks-page .task-header {
+    padding: 15px;
+    font-size: 1.1em;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Task Header Colors */
+.tasks-page .green { background: linear-gradient(135deg, #a8e063, #56ab2f); }
+.tasks-page .yellow { background: linear-gradient(135deg, #fddb3a, #f7b801); }
+.tasks-page .red { background: linear-gradient(135deg, #f44336, #d32f2f); }
+.tasks-page .cyan { background: linear-gradient(135deg, #1bc6b4, #049cb8); }
+.tasks-page .orange { background: linear-gradient(135deg, #ff8c00, #ff6f00); }
+
+/* Task Item Styles */
+.tasks-page .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid #f0f0f0;
+    font-size: 15px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.tasks-page .task-item .task-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.tasks-page .task-item .due-date {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Task Item Hover Effect */
+.tasks-page .task-item:hover {
+    background: #f9f9f9;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* No-Tasks Style */
+.tasks-page .task-item.no-tasks {
+    justify-content: center;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #999;
+}
+
+/* Task Group Hover Effect */
+.tasks-page .task-group:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,72 @@
+/* src/styles/sidebar.css */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(180deg, #6a11cb, #7b2cbf);
+  color: white;
+  transition: left 0.3s ease, box-shadow 0.3s ease;
+  padding-top: 60px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #ffda79;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 20px 0;
+  transition: transform 0.2s ease;
+}
+
+.sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar nav ul li a i {
+  margin-right: 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.sidebar nav ul li:hover a {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffda79;
+  transform: translateX(5px);
+}
+
+.sidebar nav ul li a:hover i {
+  color: #ffda79;
+}

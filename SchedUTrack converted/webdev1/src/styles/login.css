@@ -1,0 +1,182 @@
+/* login.css */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #c1a9e4;
+    color: #333;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Page Container */
+.login-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Logo Container */
+.login-page .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.login-page .login-logo {
+    width: 60%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.login-page .login-logo:hover {
+    transform: rotate(-10deg) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Login Form Container */
+.login-page .login-container {
+    background: linear-gradient(145deg, #e0d4f3, #f6f1fc);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Heading Style */
+.login-page h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #5e005e;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Input Group Styles */
+.login-page .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.login-page .input-group label {
+    font-size: 14px;
+    color: #555;
+    align-self: flex-start;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+/* Enhanced Input Styles */
+.login-page input[type="text"],
+.login-page input[type="password"] {
+    width: 75%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+    font-size: 15px;
+    outline: none;
+}
+
+.login-page input[type="text"]:focus,
+.login-page input[type="password"]:focus {
+    border-color: #800080;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.3);
+}
+
+/* Button Styles */
+.login-page button {
+    width: 75%;
+    background: linear-gradient(145deg, #800080, #5e005e);
+    color: #fff;
+    padding: 12px 0;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(128, 0, 128, 0.3);
+    outline: none;
+    letter-spacing: 0.5px;
+}
+
+.login-page button:hover {
+    background: linear-gradient(145deg, #5e005e, #800080);
+    box-shadow: 0 6px 20px rgba(128, 0, 128, 0.4);
+    transform: translateY(-3px);
+}
+
+.login-page button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(128, 0, 128, 0.2);
+}
+
+/* Forgot Password Link */
+.login-page .forgot-password {
+    color: #5e005e;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-page .forgot-password:hover {
+    color: #800080;
+    text-decoration: underline;
+}
+
+/* Error Message Styling */
+.login-page .error-message {
+    color: #d9534f;
+    opacity: 0; /* Start hidden */
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.login-page .error-message.visible {
+    opacity: 1;
+}
+
+/* Additional Spacing */
+.login-page .scrollspace {
+    height: 50px;
+}
+
+.login-page .forgot-password-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

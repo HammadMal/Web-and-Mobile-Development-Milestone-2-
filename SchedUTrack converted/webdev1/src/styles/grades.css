@@ -1,0 +1,81 @@
+/* src/styles/grades.css */
+
+.grades-section {
+    padding: 20px;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.table-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    text-align: center;
+}
+
+.gpa-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+}
+
+.gpa-box {
+    width: 150px;
+    height: 150px;
+    border: 2px dotted lightgray;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.gpa-box:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.grades-table {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.grades-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grades-table th,
+.grades-table td {
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    text-align: left;
+}
+
+.grades-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.what-if-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #808080;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.what-if-button:hover {
+    background-color: #333;
+    color: yellow;
+}
