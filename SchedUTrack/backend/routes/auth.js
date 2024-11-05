@@ -1,42 +1,30 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Adjust the path if necessary
+const mongoose = require('mongoose');
 const router = express.Router();
+require('dotenv').config();
 
-router.get('/test', (req, res) => {
-    res.send("Auth test route is working");
-  });
-  
+const DataTest = require('../models/User'); // Import DataTest model
 
 router.post('/login', async (req, res) => {
-  console.log("Login route hit");
   const { username, password } = req.body;
-  console.log("Received username:", username); // Log the received username
-
- 
-
-
-  if (!username || !password) {
-    return res.status(400).json({ msg: 'Please enter both username and password' });
-  }
 
   try {
-    const user = await User.findOne({ username });
-    console.log("User found:", user);
-    if (!user) return res.status(400).json({ msg: 'User not found' });
+    const data = await DataTest.findOne({ "users.username": username }, { "users.$": 1 });
+    if (!data) return res.status(404).json({ msg: 'User not found' });
 
-    if (password !== user.password) 
-    {
-        return res.status(400).json({ msg: 'Invalid credentials' });
-    }
+    const user = data.users[0];
+    if (user.password !== password) return res.status(400).json({ msg: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    // Use username instead of _id for token generation
+    const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, user: { username: user.username, email: user.email } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
+
 
 module.exports = router;
