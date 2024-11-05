@@ -1,8 +1,6 @@
-/* src/styles/task.css */
-
 /* ======================= Global Styles for Tasks Page ======================= */
 .tasks-page {
-    background-color: #f0e8ff;/* Lighter background for a softer appearance */
+    background-color: #f0e8ff; /* Lighter background for a softer appearance */
     min-height: 100vh;
     padding-top: 90px; /* Add top padding to account for navbar height */
     padding-bottom: 12px; /* Bottom padding for spacing */
@@ -70,7 +68,8 @@
 /* Task Item Styles */
 .tasks-page .task-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Center elements vertically */
+    justify-content: center;
     align-items: center;
     padding: 12px 20px;
     border-top: 1px solid #f0f0f0;
@@ -78,14 +77,34 @@
     transition: background 0.3s, transform 0.3s;
 }
 
+/* Task Name and Due Date Styling */
 .tasks-page .task-item .task-name {
     font-weight: 500;
     color: #333;
+    margin-bottom: 5px;
 }
 
 .tasks-page .task-item .due-date {
     font-size: 14px;
     color: #777;
+}
+
+/* Button Styling for "Completed" */
+.tasks-page .task-item .complete-button {
+    background-color: #000000; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 5px;
+}
+
+/* Button Hover Effect */
+.tasks-page .task-item .complete-button:hover {
+    background-color: #388e3c;
 }
 
 /* Task Item Hover Effect */
@@ -107,4 +126,66 @@
 .tasks-page .task-group:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+    background: #ffffff;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-content p {
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Modal Buttons */
+.modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.yes-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.no-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.modal-button:hover {
+    opacity: 0.9;
 }

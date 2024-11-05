@@ -180,3 +180,29 @@ body {
     display: flex;
     justify-content: center;
 }
+
+/* Error Message Styling */
+.login-page .error-message {
+    color: #d9534f;
+    background-color: #fff3f4; /* Light red background for better visibility */
+    border-left: 5px solid #d9534f; /* Solid left border for emphasis */
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1; /* Ensure it's always visible when error exists */
+}
+
+.login-page .error-message.visible {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
