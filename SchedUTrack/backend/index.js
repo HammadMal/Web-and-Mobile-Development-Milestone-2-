@@ -1,16 +1,17 @@
-require('dotenv').config();
-
+// backend/index.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const authRoute = require('./routes/auth');
+const courseRoute = require('./routes/course');
+const taskRoute = require('./routes/task'); 
+const addTaskRoute = require('./routes/addTask'); // Import the addTask route
 
 const app = express();
 
-// Apply CORS middleware at the beginning
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -18,19 +19,15 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.log(err));
 
-// Routes
-const authRoute = require('./routes/auth');
+// Set up routes
 app.use('/api/auth', authRoute);
-
-// Test routes for server and database connection
-app.get('/test', (req, res) => {
-    res.send("Server is running and DB is connected");
-});
+app.use('/api/courses', courseRoute);
+app.use('/api/tasks', taskRoute);
+app.use('/api/add-task', addTaskRoute); // Add the add-task route
 
 app.get('/', (req, res) => {
     res.send('Server is running');
 });
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
