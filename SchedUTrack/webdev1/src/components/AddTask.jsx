@@ -1,17 +1,42 @@
 // src/components/AddTask.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/add_task.css';
 
-function AddTask({ tasksData, addTask }) {
+function AddTask({ addTask }) {
   const [taskName, setTaskName] = useState('');
-  const [dueDate, setDueDate] = useState('');
+  const [dueDate, setDueDate] = useState(null);
   const [courseName, setCourseName] = useState('');
+  const [courses, setCourses] = useState([]);
 
-  const courseOptions = tasksData.map((course, index) => (
-    <option key={index} value={course.courseName}>{course.courseName}</option>
-  ));
+  // Fetch courses independently within AddTask component
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/courses', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
 
-  const handleSubmit = (e) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error('Failed to fetch courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!taskName || !dueDate || !courseName) {
       alert("Please fill out all details!");
@@ -19,17 +44,37 @@ function AddTask({ tasksData, addTask }) {
     }
 
     const newTask = {
-      name: taskName,
-      dueDate: dueDate,
-      completed: false,
+      taskName,
+      dueDate: dueDate.toISOString().split('T')[0],
+      taskType: courseName,
     };
 
-    addTask(courseName, newTask);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/add-task', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTask),
+      });
 
-    alert("Task added successfully!");
-    setTaskName('');
-    setDueDate('');
-    setCourseName('');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+      alert("Task added successfully!");
+
+      setTaskName('');
+      setDueDate(null);
+      setCourseName('');
+    } catch (error) {
+      console.error('Error adding task:', error);
+      alert('Failed to add task. Please try again.');
+    }
   };
 
   return (
@@ -52,14 +97,12 @@ function AddTask({ tasksData, addTask }) {
           />
 
           <label htmlFor="dueDate">Due Date:</label>
-          <input
-            type="date"
-            id="dueDate"
-            name="dueDate"
+          <DatePicker
+            selected={dueDate}
+            onChange={(date) => setDueDate(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select Due Date"
             className="add-task-input"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            required
           />
 
           <label htmlFor="type">Type:</label>
@@ -72,7 +115,10 @@ function AddTask({ tasksData, addTask }) {
             required
           >
             <option value="">Select Course</option>
-            {courseOptions}
+            {courses.map((course, index) => (
+              <option key={index} value={course.coursename}>{course.coursename}</option>
+            ))}
+            <option value="Personal">Personal</option>
           </select>
 
           <input type="submit" value="Add Task" className="add-task-submit" />

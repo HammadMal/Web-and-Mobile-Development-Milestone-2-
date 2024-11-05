@@ -1,33 +1,56 @@
-// src/components/Homepage.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/homepage.css';
 
 function Homepage() {
-  return (
-    <div className="homepage-content">
-      <section className="rectangle-container">
-        <Link to="/tasks" className="rectangle rectangle-1">
-          <h3>CS 101: Introduction to Programming with Python</h3>
-        </Link>
-        <Link to="/tasks" className="rectangle rectangle-2">
-          <h3>CS 201: Data Structures and Algorithms</h3>
-        </Link>
-        <Link to="/tasks" className="rectangle rectangle-3">
-          <h3>CS 301: Operating Systems and Systems Programming</h3>
-        </Link>
-        <Link to="/tasks" className="rectangle rectangle-4">
-          <h3>CS 101: Web Development Fundamentals</h3>
-        </Link>
-        <Link to="/tasks" className="rectangle rectangle-5">
-          <h3>CS 202: Database Management Systems</h3>
-        </Link>
-        <Link to="/tasks" className="rectangle rectangle-6">
-          <h3>CS 302: Machine Learning and Data Analysis</h3>
-        </Link>
-      </section>
-    </div>
-  );
+    const [courses, setCourses] = useState([]);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            console.log("Starting fetch for courses...");
+            try {
+                const token = localStorage.getItem('token');
+                console.log("Token from localStorage:", token);
+
+                const response = await fetch('http://localhost:5000/api/courses', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    console.error("Fetch error response text:", errorMessage);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    const data = await response.json();
+                    console.log("Courses fetched successfully:", data);
+                    setCourses(data);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error.message);
+                setError('Failed to fetch courses.');
+            }
+        };
+
+        fetchCourses();
+    }, []);
+
+    console.log("Rendering homepage, courses:", courses);
+
+    return (
+        <div className="homepage-content">
+            <section className="rectangle-container">
+                {courses.length > 0 ? courses.map((course, index) => (
+                    <Link key={index} to={`/tasks/${course.coursenameId}`} className={`rectangle rectangle-${(index % 6) + 1}`}>
+                        <h3>{`${course.coursenameId} ${course.coursename}`}</h3>
+                    </Link>
+                )) : <p>{error || 'Loading courses...'}</p>}
+            </section>
+        </div>
+    );
 }
 
 export default Homepage;

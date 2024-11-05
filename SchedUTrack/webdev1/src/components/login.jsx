@@ -1,4 +1,3 @@
-// src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
@@ -23,11 +22,10 @@ function Login({ onLogin }) {
       const data = await response.json();
 
       if (response.ok && data.token) {
-        // Save token to localStorage
         localStorage.setItem('token', data.token);
-        setErrorMessage(''); // Clear any previous error messages
-        onLogin(); // Update `isLoggedIn` in App.jsx
-        navigate('/'); // Redirect to the homepage
+        setErrorMessage('');
+        onLogin();
+        navigate('/');
       } else {
         setErrorMessage(data.msg || 'Invalid credentials. Please try again.');
       }
@@ -56,11 +54,12 @@ function Login({ onLogin }) {
           </div>
           <div className="input-group">
             <button type="button" onClick={validateLogin}>Login</button>
-            <div className="forgot-password-container">
-              <a href="#" className="forgot-password">Forgot password?</a>
-            </div>
           </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {errorMessage && (
+            <div className="error-message visible">
+              {errorMessage}
+            </div>
+          )}
         </form>
       </div>
     </div>
