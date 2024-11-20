@@ -8,6 +8,7 @@ const taskRoute = require('./routes/task');
 const addTaskRoute = require('./routes/addTask'); // Import the addTask route
 const attendanceRoutes = require('./routes/attendance');
 const gradesRoute = require('./routes/grade');
+const scheduleRouter = require('./routes/schedule');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/tasks', taskRoute);
 app.use('/api/add-task', addTaskRoute); // Add the add-task route
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/grades', gradesRoute);
+app.use('/api/schedule', scheduleRouter);
 
 app.get('/', (req, res) => {
     res.send('Server is running');
