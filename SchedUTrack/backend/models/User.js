@@ -28,8 +28,8 @@ const GradeSchema = new Schema({
 
 // Past course grade schema
 const PastCourseGradeSchema = new Schema({
-  past_coursename: String,
-  past_course_grade: String,
+  coursename: String,
+  grade: String,
   credits: Number  // Adding credits field here
 });
 
@@ -49,8 +49,7 @@ const UserSchema = new Schema({
   course_time: { type: Map, of: String },  // Adding course_time field here
   attendance: [AttendanceSchema],
   grades: [GradeSchema],
-  past_courses: [String],
-  past_course_grades: [PastCourseGradeSchema],
+  past_courses_grades: [PastCourseGradeSchema],
   tasks: [TaskSchema]
 });
 
