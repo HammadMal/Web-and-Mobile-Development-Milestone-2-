@@ -29,5 +29,21 @@ app.get('/', (req, res) => {
     res.send('Server is running');
 });
 
+app.get('/api/auth', (req, res) => {
+    res.send('Login is running');
+});
+
+app.get('/api/courses', (req, res) => {
+    res.send('Courses is running');
+});
+
+app.get('/api/tasks', (req, res) => {
+    res.send('tasks is running');
+});
+
+app.get('/api/add-task', (req, res) => {
+    res.send('add-task is running');
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
