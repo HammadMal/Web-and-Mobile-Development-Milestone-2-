@@ -7,22 +7,30 @@ const CourseSchema = new Schema({
   coursenameId: String
 });
 
+// Course Time Map Schema
+const CourseTimeSchema = new Schema({
+  time: { type: Map, of: String }
+}, { _id: false });
+
 // Attendance schema
 const AttendanceSchema = new Schema({
   coursename: String,
-  absences: Number
+  absences: Number,
+  dates: [String]
 });
 
 // Grade schema
 const GradeSchema = new Schema({
   coursename: String,
-  grade: String
+  grade: String,
+  credits: Number  // Adding credits field here
 });
 
 // Past course grade schema
 const PastCourseGradeSchema = new Schema({
   past_coursename: String,
-  past_course_grade: String
+  past_course_grade: String,
+  credits: Number  // Adding credits field here
 });
 
 // Task schema
@@ -34,16 +42,16 @@ const TaskSchema = new Schema({
 
 // User schema
 const UserSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, auto: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  email: String,
+  email: { type: String },
   courses: [CourseSchema],
+  course_time: { type: Map, of: String },  // Adding course_time field here
   attendance: [AttendanceSchema],
   grades: [GradeSchema],
   past_courses: [String],
   past_course_grades: [PastCourseGradeSchema],
-  tasks: [TaskSchema] // Add tasks array here
+  tasks: [TaskSchema]
 });
 
 // Main schema for the entire data collection
@@ -51,4 +59,4 @@ const DataTestSchema = new Schema({
   users: [UserSchema]
 });
 
-module.exports = mongoose.model('DataTest', DataTestSchema, 'data_test');
+module.exports = mongoose.model('DataTest', DataTestSchema, 'data_test');  // Ensure 'data_test' is the correct collection name
