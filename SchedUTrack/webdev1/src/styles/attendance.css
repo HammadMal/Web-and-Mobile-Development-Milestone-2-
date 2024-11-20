@@ -61,24 +61,34 @@
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    opacity: 0;
+    opacity: 1; /* Ensure opacity is set to 1 */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(20px); /* Hidden initially */
-    z-index: 1;
+    transform: translateY(0px); /* Visible by default */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.info-box.hidden {
+    opacity: 0; /* Hide when not active */
+    transform: translateY(20px); /* Move slightly down when hidden */
+    pointer-events: none; /* Prevent interaction when hidden */
 }
 
 .info-item {
     display: flex;
     align-items: center;
+    gap: 10px; /* Adds spacing between the dot and the text */
     margin: 10px 0;
+    font-size: 16px; /* Adjust font size if needed */
 }
+
 
 .color-dot {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    margin-right: 10px;
+    flex-shrink: 0; /* Prevents the dot from resizing */
 }
+
 
 .green-dot { background-color: #4caf50; }
 .yellow-dot { background-color: #d3aa04; }
