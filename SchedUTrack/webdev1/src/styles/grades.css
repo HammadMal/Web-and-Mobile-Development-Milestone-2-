@@ -33,11 +33,15 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
+
 
 .gpa-box:hover {
     background-color: #333;
     color: #fff;
+    transform: scale(1.1); /* Slightly increase size on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
 }
 
 .grades-table {
@@ -78,4 +82,70 @@
 .what-if-button:hover {
     background-color: #333;
     color: yellow;
+}
+
+.info-box {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: white; /* Set background to white */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column; /* Ensure proper alignment */
+    align-items: center; /* Center align content horizontally */
+    justify-content: center; /* Center align content vertically */
+    text-align: center; /* Ensure text alignment */
+}
+
+.info-box-header {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure it spans the width of the box */
+    text-align: center; /* Center align the text */
+    font-size: 25px;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #888; /* Lighter color for better contrast */
+}
+
+.close-button:hover {
+    color: black;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; /* Add spacing from the header */
+    font-size: 18px;
+}
+
+.info-table th, .info-table td {
+    border: 1px solid #5f5b5b;
+    padding: 8px;
+    text-align: center; /* Center align text in the table */
+}
+
+.info-table th {
+    background-color: #7b2cbf;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.info-total-credits {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center; /* Center align the text */
+    color: #000000;
 }
