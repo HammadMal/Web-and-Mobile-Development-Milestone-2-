@@ -1,8 +1,9 @@
-// src/components/AddTask.jsx
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/add_task.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddTask({ addTask }) {
   const [taskName, setTaskName] = useState('');
@@ -39,7 +40,7 @@ function AddTask({ addTask }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!taskName || !dueDate || !courseName) {
-      alert("Please fill out all details!");
+      toast.error("Please fill out all details!");
       return;
     }
 
@@ -66,14 +67,26 @@ function AddTask({ addTask }) {
 
       const result = await response.json();
       console.log(result);
-      alert("Task added successfully!");
 
+      // Show success notification
+      toast.success("Task added successfully!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        style: { backgroundColor: 'green', color: 'white' }
+      });
+
+      // Reset the form
       setTaskName('');
       setDueDate(null);
       setCourseName('');
     } catch (error) {
       console.error('Error adding task:', error);
-      alert('Failed to add task. Please try again.');
+      toast.error('Failed to add task. Please try again.');
     }
   };
 
@@ -124,6 +137,7 @@ function AddTask({ addTask }) {
           <input type="submit" value="Add Task" className="add-task-submit" />
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

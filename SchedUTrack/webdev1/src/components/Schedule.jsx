@@ -32,17 +32,19 @@ function Schedule() {
         if (course) {
             return (
                 <div className={`course-block ${course.color}`}>
-                    {course.courseName}
-                    {showAbsences && (
+                    {showAbsences ? (
                         <div className="absences">
                             Absences: {Math.floor(Math.random() * 5)}
                         </div>
+                    ) : (
+                        course.courseName
                     )}
                 </div>
             );
         }
         return null;
     };
+    
 
     // Function to convert time format
     const formatTime = (time) => {

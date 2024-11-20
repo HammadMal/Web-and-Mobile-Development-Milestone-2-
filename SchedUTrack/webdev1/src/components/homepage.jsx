@@ -44,7 +44,7 @@ function Homepage() {
         <div className="homepage-content">
             <section className="rectangle-container">
                 {courses.length > 0 ? courses.map((course, index) => (
-                    <Link key={index} to="/tasks" className={`rectangle rectangle-${(index % 6) + 1}`}>
+                    <Link key={index} to={`/tasks`} className={`rectangle rectangle-${(index % 6) + 1}`}>
                         <h3>{`${course.coursenameId} ${course.coursename}`}</h3>
                     </Link>
                 )) : <p>{error || 'Loading courses...'}</p>}

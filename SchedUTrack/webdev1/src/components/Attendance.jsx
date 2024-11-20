@@ -1,28 +1,42 @@
-// src/components/Attendance.jsx
 import React, { useState, useEffect } from 'react';
 import '../styles/attendance.css';
 
-const attendanceData = [
-    { courseName: "CS 101 - Introduction to Programming", totalClasses: 30, absences: 1, absenceDates: ["2024-10-10"] },
-    { courseName: "CS 201 - Data Structures", totalClasses: 30, absences: 2, absenceDates: ["2024-09-15", "2024-10-01"] },
-    { courseName: "CS 301 - Operating Systems", totalClasses: 15, absences: 3, absenceDates: ["2024-09-20", "2024-10-04", "2024-10-11"] },
-    { courseName: "CS 101 - Web Development", totalClasses: 15, absences: 4, absenceDates: ["2024-09-20", "2024-09-27", "2024-10-04", "2024-10-27"] },
-    { courseName: "CS 202 - DBMS", totalClasses: 30, absences: 1, absenceDates: ["2024-09-22"] },
-    { courseName: "CS 401 - Advanced Algorithms", totalClasses: 30, absences: 2, absenceDates: ["2024-09-18", "2024-10-02"] }
-];
-
 function Attendance() {
+    const [attendanceData, setAttendanceData] = useState([]);
     const [selectedCourse, setSelectedCourse] = useState(null);
+    const [hovered, setHovered] = useState(false); // Track if mouse is hovering
     const [modalVisible, setModalVisible] = useState(false);
     const [recentAbsences, setRecentAbsences] = useState([]);
 
     useEffect(() => {
-        populateAttendance();
+        fetchAttendance();
     }, []);
 
+    const fetchAttendance = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/attendance', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            console.log("Fetched attendance data:", data); // Debugging statement
+            setAttendanceData(data);
+        } catch (error) {
+            console.error('Error fetching attendance data:', error);
+        }
+    };
+
     const formatDate = (dateString) => {
-        const options = { day: 'numeric', month: 'long', year: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-GB', options);
+        try {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-GB', options);
+        } catch (error) {
+            console.error("Error formatting date:", dateString, error);
+            return "Invalid date";
+        }
     };
 
     const getAttendanceColor = (totalClasses, absences) => {
@@ -37,6 +51,16 @@ function Attendance() {
         setSelectedCourse(selectedCourse === course ? null : course);
     };
 
+    const handleMouseEnter = () => {
+        console.log("Mouse entered a course block"); // Debugging statement
+        setHovered(true); // Show info box
+    };
+
+    const handleMouseLeave = () => {
+        console.log("Mouse left a course block"); // Debugging statement
+        setHovered(false); // Hide info box
+    };
+
     const handleToggleModal = () => {
         setRecentAbsences(generateRecentAbsences());
         setModalVisible(!modalVisible);
@@ -45,8 +69,8 @@ function Attendance() {
     const generateRecentAbsences = () => {
         return attendanceData
             .map(course => ({
-                courseName: course.courseName,
-                absenceDates: course.absenceDates.filter(isWithinLast7Days)
+                courseName: course.coursename,
+                absenceDates: course.dates.filter(isWithinLast7Days).map(date => formatDate(date))
             }))
             .filter(course => course.absenceDates.length > 0);
     };
@@ -58,37 +82,56 @@ function Attendance() {
         return diffInDays <= 7 && diffInDays >= 0;
     };
 
-    const populateAttendance = () => {
-        return attendanceData.map((course) => {
-            const isExpanded = selectedCourse === course;
-            const colorClass = getAttendanceColor(course.totalClasses, course.absences);
-
-            return (
-                <div
-                    key={course.courseName}
-                    className={`rectangle ${colorClass}`}
-                    onClick={() => toggleCourseDetails(course)}
-                >
-                    <h3>{course.courseName}</h3>
-                    {isExpanded && (
-                        <div className="course-info">
-                            <p><strong>Total Classes:</strong> {course.totalClasses}</p>
-                            <p><strong>Absences:</strong> {course.absences}</p>
-                            <p><strong>Absence Dates:</strong> {course.absenceDates.map(formatDate).join(", ")}</p>
-                        </div>
-                    )}
-                </div>
-            );
-        });
-    };
-
     return (
         <div className="attendance-content">
             <section className="rectangle-container">
-                {populateAttendance()}
+                {attendanceData.map((course) => {
+                    const isExpanded = selectedCourse === course;
+                    const colorClass = getAttendanceColor(30, course.absences); // Hardcoding 30 for total classes
+
+                    return (
+                        <div
+                            key={course.coursename}
+                            className={`rectangle ${colorClass}`}
+                            onClick={() => toggleCourseDetails(course)}
+                            onMouseEnter={handleMouseEnter} // Debug mouse enter
+                            onMouseLeave={handleMouseLeave} // Debug mouse leave
+                        >
+                            <h3>{course.coursename}</h3>
+                            {isExpanded && (
+                                <div className="course-info">
+                                    <p><strong>Total Classes:</strong> 30</p>
+                                    <p><strong>Absences:</strong> {course.absences}</p>
+                                    <p><strong>Absence Dates:</strong> {course.dates.map(formatDate).join(", ")}</p>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
             </section>
 
             <button className="recent-absences-btn" onClick={handleToggleModal}>Recent Absences</button>
+
+            {hovered && (
+                        <div
+                            className="info-box"
+                            style={{ display: hovered ? "block" : "none" }} // Add inline style for visibility check
+                        >
+                            <div className="info-item">
+                                <div className="color-dot green-dot"></div> 95% or above attendance
+                            </div>
+                            <div className="info-item">
+                                <div className="color-dot yellow-dot"></div> 85% - 94% attendance
+                            </div>
+                            <div className="info-item">
+                                <div className="color-dot red-dot"></div> 75% - 84% attendance
+                            </div>
+                            <div className="info-item">
+                                <div className="color-dot gray-dot"></div> Below 75% (Risk of withdrawal)
+                            </div>
+                        </div>
+                    )}
+            
 
             {modalVisible && (
                 <div className="modal" onClick={() => setModalVisible(false)}>
@@ -107,9 +150,7 @@ function Attendance() {
                                     recentAbsences.map((course) => (
                                         <tr key={course.courseName}>
                                             <td>{course.courseName}</td>
-                                            <td>{course.absenceDates.map(date => (
-                                                <span key={date} className="absence-date">{formatDate(date)}</span>
-                                            )).join(", ")}</td>
+                                            <td>{course.absenceDates.join(", ")}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -128,21 +169,6 @@ function Attendance() {
                     </div>
                 </div>
             )}
-
-            <div className="info-box">
-                <div className="info-item">
-                    <div className="color-dot green-dot"></div> 95% or above attendance
-                </div>
-                <div className="info-item">
-                    <div className="color-dot yellow-dot"></div> 85% - 94% attendance
-                </div>
-                <div className="info-item">
-                    <div className="color-dot red-dot"></div> 75% - 84% attendance
-                </div>
-                <div className="info-item">
-                    <div className="color-dot gray-dot"></div> Below 75% (Risk of withdrawal)
-                </div>
-            </div>
         </div>
     );
 }

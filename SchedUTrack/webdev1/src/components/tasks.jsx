@@ -1,6 +1,7 @@
-// src/components/Tasks.jsx
 import React, { useEffect, useState } from 'react';
 import '../styles/task.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Tasks() {
     const [courses, setCourses] = useState([]);
@@ -70,6 +71,18 @@ function Tasks() {
 
             // Remove task from local state
             setTasks((prevTasks) => prevTasks.filter(task => task._id !== taskId));
+
+            // Show deletion success notification
+            toast.error("Task Deleted Successfully!", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                style: { backgroundColor: 'red', color: 'white' }
+            });
 
             // Close the modal
             handleCloseModal();
@@ -144,6 +157,7 @@ function Tasks() {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </div>
     );
 }
