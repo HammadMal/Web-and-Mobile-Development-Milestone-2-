@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../styles/task.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,34 +7,41 @@ import 'react-toastify/dist/ReactToastify.css';
 function Tasks() {
     const [courses, setCourses] = useState([]);
     const [tasks, setTasks] = useState([]);
-    const [showModal, setShowModal] = useState(false); // State for modal visibility
-    const [selectedTask, setSelectedTask] = useState(null); // State to track selected task
+    const [showModal, setShowModal] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
     const colors = ['green', 'yellow', 'red', 'cyan', 'orange'];
+
+    const location = useLocation();
+    const selectedCourse = location.state?.selectedCourse;
 
     useEffect(() => {
         const fetchCoursesAndTasks = async () => {
+            console.log("Fetching courses and tasks...");
             try {
+                // Fetch courses
                 const responseCourses = await fetch('http://localhost:5000/api/courses', {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
-                    }
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+                    },
                 });
-
-                const responseTasks = await fetch('http://localhost:5000/api/tasks', {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
                 if (!responseCourses.ok) throw new Error(`HTTP error! status: ${responseCourses.status}`);
-                if (!responseTasks.ok) throw new Error(`HTTP error! status: ${responseTasks.status}`);
 
                 const coursesData = await responseCourses.json();
-                const tasksData = await responseTasks.json();
-
+                console.log("Fetched courses:", coursesData); // Debugging
                 setCourses(coursesData);
+
+                // Fetch tasks
+                const responseTasks = await fetch('http://localhost:5000/api/tasks', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (!responseTasks.ok) throw new Error(`HTTP error! status: ${responseTasks.status}`);
+
+                const tasksData = await responseTasks.json();
+                console.log("Fetched tasks:", tasksData); // Debugging
                 setTasks(tasksData);
             } catch (error) {
                 console.error('Failed to fetch data:', error);
@@ -44,13 +52,13 @@ function Tasks() {
     }, []);
 
     const handleCompleteClick = (task) => {
-        setSelectedTask(task); // Set the task to be confirmed
-        setShowModal(true); // Show the confirmation modal
+        setSelectedTask(task);
+        setShowModal(true);
     };
 
     const handleCloseModal = () => {
-        setShowModal(false); // Close the modal
-        setSelectedTask(null); // Clear the selected task
+        setShowModal(false);
+        setSelectedTask(null);
     };
 
     const handleDeleteTask = async () => {
@@ -60,89 +68,82 @@ function Tasks() {
             const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
                 throw new Error('Failed to delete task');
             }
 
-            // Remove task from local state
-            setTasks((prevTasks) => prevTasks.filter(task => task._id !== taskId));
+            setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
 
-            // Show deletion success notification
-            toast.error("Task Deleted Successfully!", {
-                position: "top-right",
+            toast.error('Task Deleted Successfully!', {
+                position: 'top-right',
                 autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
-                style: { backgroundColor: 'red', color: 'white' }
+                style: { backgroundColor: 'red', color: 'white' },
             });
 
-            // Close the modal
             handleCloseModal();
         } catch (error) {
             console.error('Error deleting task:', error);
         }
     };
 
-    const getTasksForCourse = (courseName) => {
-        return tasks.filter(task => task.taskType === courseName);
-    };
+    // Reorder tasks to place selectedCourse tasks at the top
+    const reorderedTasks = selectedCourse
+        ? [
+              ...tasks.filter((task) => task.taskType === selectedCourse), // Selected course tasks
+              ...tasks.filter((task) => task.taskType !== selectedCourse), // Other tasks
+          ]
+        : tasks;
 
-    const personalTasks = tasks.filter(task => task.taskType === "Personal");
+    const personalTasks = tasks.filter((task) => task.taskType === 'Personal');
+
+    useEffect(() => {
+        console.log("Selected course:", selectedCourse); // Debugging
+        console.log("All tasks:", tasks); // Debugging
+        console.log("Reordered tasks:", reorderedTasks); // Debugging
+        console.log("Personal tasks:", personalTasks); // Debugging
+    }, [selectedCourse, tasks]);
 
     return (
         <div className="tasks-page">
             <section className="tasks-section">
                 <h1 className="section-title">Your Upcoming Tasks</h1>
                 <div className="tasks-container">
-                    {courses.map((course, index) => (
-                        <div className="task-group" key={course.coursenameId}>
-                            <div className={`task-header ${colors[index % colors.length]}`}>
-                                {`${course.coursenameId} - ${course.coursename}`}
-                            </div>
-                            {getTasksForCourse(course.coursename).length > 0 ? (
-                                getTasksForCourse(course.coursename).map((task, taskIndex) => (
-                                    <div className="task-item" key={taskIndex}>
-                                        <span className="task-name">{task.taskName}</span>
-                                        <span className="due-date">{task.dueDate}</span>
-                                        <button className="complete-button" onClick={() => handleCompleteClick(task)}>
-                                            Completed
-                                        </button>
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="task-item no-tasks">No tasks assigned</div>
-                            )}
-                        </div>
-                    ))}
-
-                    <div className="task-group">
-                        <div className="task-header green">Personal Tasks</div>
-                        {personalTasks.length > 0 ? (
-                            personalTasks.map((task, taskIndex) => (
-                                <div className="task-item" key={taskIndex}>
+                    {reorderedTasks.length > 0 ? (
+                        reorderedTasks.map((task, index) => (
+                            <div className="task-group" key={index}>
+                                <div className={`task-header ${colors[index % colors.length]}`}>
+                                    {task.taskType === 'Personal' ? 'Personal Tasks' : task.taskType}
+                                </div>
+                                <div className="task-item">
                                     <span className="task-name">{task.taskName}</span>
                                     <span className="due-date">{task.dueDate}</span>
-                                    <button className="complete-button" onClick={() => handleCompleteClick(task)}>
+                                    <button
+                                        className="complete-button"
+                                        onClick={() => handleCompleteClick(task)}
+                                    >
                                         Completed
                                     </button>
                                 </div>
-                            ))
-                        ) : (
-                            <div className="task-item no-tasks">No personal tasks assigned</div>
-                        )}
-                    </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="task-group">
+                            <div className="task-item no-tasks">No tasks assigned</div>
+                        </div>
+                    )}
                 </div>
             </section>
 
-            {/* Confirmation Modal */}
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
