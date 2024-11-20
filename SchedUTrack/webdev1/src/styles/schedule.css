@@ -1,67 +1,86 @@
-/* src/styles/schedule.css */
-
+/* Main schedule container */
 .schedule-content {
-    font-family: 'Karla', sans-serif;
-    color: #546E7A;
-}
-
-/* Timetable grid layout */
-.grid-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  /* Timetable grid */
+  .grid-container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(11, 1fr);
-    width: 100%;
-    height: 800px;
-}
-
-.grid-item {
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-}
-
-.invisible {
-    border: none;
-    background-color: transparent;
-}
-
-/* Course block styling */
-.course-block {
-    background-color: #8eeec0;
-    color: white;
-    border-radius: 4px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.course-block.green { background: linear-gradient(#5ee7b9, #2a7474); }
-.course-block.yellow { background: linear-gradient(#ffd700, #b3a700); }
-.course-block.red { background: linear-gradient(#ff5e57, #b30000); }
-.course-block.cyan { background: linear-gradient(#00ced1, #005757); }
-.course-block.orange { background: linear-gradient(#ffa500, #b36f00); }
-
-.button-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 15px;
-}
-
-.button {
-    background: linear-gradient(217deg, rgba(128, 0, 128, 0.8), rgba(128, 0, 128, 0) 70.71%),
-                linear-gradient(127deg, rgba(147, 112, 219, 0.8), rgba(147, 112, 219, 0) 70.71%),
-                linear-gradient(336deg, rgba(186, 85, 211, 0.8), rgba(186, 85, 211, 0) 70.71%);
-    color: white;
-    padding: 10px 20px;
+    grid-template-columns: 100px repeat(5, 1fr);
+    gap: 1px;
+    background-color: #ddd;
+    border: 2px solid #ccc;
     border-radius: 5px;
+  }
+  
+  .grid-item {
+    padding: 10px;
     text-align: center;
-    transition: transform 0.2s;
-}
-
-.button:hover {
-    transform: scale(1.05);
-}
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  
+  /* Invisible header for the first grid cell */
+  .invisible {
+    background-color: transparent;
+    border: none;
+  }
+  
+  /* Course block */
+  .course-block {
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  /* Attendance colors */
+  .course-block.green {
+    background-color: #28a745; /* Green for >=95% attendance */
+  }
+  
+  .course-block.yellow {
+    background-color: #ffc107; /* Yellow for >=85% attendance */
+  }
+  
+  .course-block.red {
+    background-color: #dc3545; /* Red for >=75% attendance */
+  }
+  
+  .course-block.gray {
+    background-color: #6c757d; /* Gray for <75% attendance */
+  }
+  
+  /* Buttons */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6f42c1;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #563d7c;
+  }
+  
+  .button:active {
+    transform: scale(0.95);
+  }
+  
