@@ -11,6 +11,7 @@ import Grades from "./components/Grades";
 import AddTask from "./components/AddTask";
 import AboutUs from "./components/AboutUs";
 import Settings from "./components/settings";
+import DesignMode from './components/DesignMode';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -36,6 +37,7 @@ function App() {
             path="/login"
             element={isLoggedIn ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} />}
           />
+          
           <Route path="/" element={isLoggedIn ? <Homepage /> : <Navigate to="/login" replace />} />
           <Route path="/tasks" element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />} />
           <Route path="/attendance" element={isLoggedIn ? <Attendance /> : <Navigate to="/login" replace />} />
@@ -43,6 +45,9 @@ function App() {
           <Route path="/grades" element={isLoggedIn ? <Grades /> : <Navigate to="/login" replace />} />
           <Route path="/add-task" element={isLoggedIn ? <AddTask /> : <Navigate to="/login" replace />} />
           <Route path="/about-us" element={isLoggedIn ? <AboutUs /> : <Navigate to="/login" replace />} />
+          <Route path="/design-mode" element={isLoggedIn ? <DesignMode /> : <Navigate to="/login" replace />} />
+
+          
           <Route
             path="/settings"
             element={

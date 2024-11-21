@@ -1,0 +1,187 @@
+/* General Layout */
+.design-mode .layout {
+    display: flex;
+    flex-direction: column; /* Stack timetable and courses vertically */
+    height: 100vh; /* Full-page height */
+    width: 100vw; /* Full-page width */
+    background: linear-gradient(135deg, #f8f9fa, #e3f2fd); /* Subtle gradient background */
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Timetable container */
+.design-mode .timetable-container {
+    flex: 1; /* Allow timetable to take available vertical space */
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff, #e9effb); /* White-to-light-blue gradient */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Grid container for timetable */
+.design-mode .grid-container {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr); /* Time column + weekdays */
+    grid-template-rows: repeat(12, 1fr); /* 12 rows dynamically scaled */
+    gap: 4px; /* Add spacing between cells */
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: calc(100vh - 250px); /* Adjust height dynamically */
+}
+
+/* Scrollbar Styling */
+.design-mode .grid-container::-webkit-scrollbar {
+    width: 8px; /* Adjust scrollbar width */
+}
+
+.design-mode .grid-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar color */
+    border-radius: 4px; /* Rounded edges for scrollbar */
+}
+
+.design-mode .grid-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+
+
+/* Grid Items */
+.design-mode .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    height: 100%;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.design-mode .grid-item:hover {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    transform: scale(1.02); /* Slight zoom effect */
+}
+
+.design-mode .grid-item.invisible {
+    background-color: transparent;
+    border: none;
+}
+
+.design-mode .grid-item.time-slot {
+    background: #f1f5f9;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    padding-right: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Courses Section */
+.design-mode .courses-section {
+    flex: 0 0 auto; /* Courses section stays fixed at the bottom */
+    height: 220px; /* Slightly taller for a better look */
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff, #f3f7fd); /* Smooth gradient */
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    overflow-y: auto; /* Scrollable if content exceeds available height */
+}
+
+/* Courses Header */
+.design-mode .courses-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Course List */
+.design-mode .course-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Course Block Styling */
+.design-mode .course-block {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 160px; /* Slightly larger for visual balance */
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.design-mode .course-block:hover {
+    transform: scale(1.1); /* Smooth zoom-in effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Course Colors */
+.design-mode .course-block.blue {
+    background: linear-gradient(135deg, #d0e1ff, #3b82f6);
+    color: white;
+}
+
+.design-mode .course-block.purple {
+    background: linear-gradient(135deg, #e9d5ff, #9333ea);
+    color: white;
+}
+
+.design-mode .course-block.teal {
+    background: linear-gradient(135deg, #a7f3d0, #047857);
+    color: white;
+}
+
+/* Dropzone Highlight */
+.design-mode .grid-item:hover {
+    background-color: #e0f7fa;
+    border: 2px dashed #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .design-mode .layout {
+        flex-direction: column; /* Stack everything vertically */
+    }
+
+    .design-mode .timetable-container {
+        height: calc(100vh - 250px); /* Adjust for courses section height */
+    }
+
+    .design-mode .grid-container {
+        grid-template-columns: 70px repeat(5, 1fr); /* Smaller time column */
+        grid-template-rows: repeat(12, 1fr); /* Dynamically scaled rows */
+    }
+
+    .design-mode .course-block {
+        width: 120px;
+        height: 40px;
+    }
+}

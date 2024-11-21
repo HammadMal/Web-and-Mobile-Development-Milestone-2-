@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/schedule.css';
 
 function Schedule() {
   const [scheduleData, setScheduleData] = useState([]);
   const [militaryTime, setMilitaryTime] = useState(false);
   const [showAbsences, setShowAbsences] = useState(false);
+  const navigate = useNavigate();
 
   // Fetch schedule data
   const fetchSchedule = async () => {
@@ -97,7 +99,9 @@ function Schedule() {
         <button className="button" onClick={toggleAbsences}>
           {showAbsences ? 'Hide Attendance' : 'Display Attendance'}
         </button>
-        <button className="button">Schedule Design Mode</button>
+        <button className="button" onClick={() => navigate('/design-mode')}>
+                Schedule Design Mode
+        </button>
       </div>
     </div>
   );
