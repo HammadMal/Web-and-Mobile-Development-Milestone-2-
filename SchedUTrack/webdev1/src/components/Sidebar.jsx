@@ -1,13 +1,21 @@
-// src/components/Sidebar.jsx
-import React from 'react';
-import '../styles/sidebar.css';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTasks, faHome, faUserCheck, faCalendarAlt, faChartBar, faPlusCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import "../styles/sidebar.css";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTasks,
+  faHome,
+  faUserCheck,
+  faCalendarAlt,
+  faChartBar,
+  faPlusCircle,
+  faInfoCircle,
+  faCog,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ isOpen, onSidebarClose }) {
   return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+    <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <button className="close-button" onClick={onSidebarClose}>
         <i className="fas fa-times"></i>
       </button>
@@ -46,6 +54,11 @@ function Sidebar({ isOpen, onSidebarClose }) {
           <li>
             <Link to="/about-us" onClick={onSidebarClose}>
               <FontAwesomeIcon icon={faInfoCircle} className="icon" /> About Us
+            </Link>
+          </li>
+          <li>
+            <Link to="/settings" onClick={onSidebarClose}>
+              <FontAwesomeIcon icon={faCog} className="icon" /> Settings
             </Link>
           </li>
         </ul>
