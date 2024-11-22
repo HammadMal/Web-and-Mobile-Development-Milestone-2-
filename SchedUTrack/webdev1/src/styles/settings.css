@@ -100,3 +100,48 @@
     background-color: #f44336; /* Red error background */
     color: white;
   }
+
+
+/* Tablet Devices (768px to 1024px) */
+@media (max-width: 1024px) {
+  .settings-modal {
+    width: 80%; /* Adjust modal width for tablets */
+    padding: 20px; /* Adjust padding for better fit */
+  }
+
+  .settings-modal h2 {
+    font-size: 22px; /* Slightly smaller heading */
+  }
+
+  .settings-field input {
+    font-size: 14px; /* Adjust input font size */
+  }
+
+  .change-button, .back-button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px 16px; /* Compact button padding */
+  }
+}
+
+/* Mobile Devices (Up to 768px) */
+@media (max-width: 768px) {
+  .settings-modal {
+    width: 92%; /* Ensure the modal fills most of the screen width */
+    padding: 15px; /* Compact padding */
+  }
+
+  .settings-modal h2 {
+    font-size: 20px; /* Smaller heading */
+  }
+
+  .settings-field input {
+    font-size: 14px; /* Smaller input font */
+    padding: 8px; /* Reduce input padding */
+  }
+
+  .change-button, .back-button {
+    font-size: 13px; /* Smaller button text */
+    padding: 8px 12px; /* Adjust button padding */
+    margin: 5px; /* Compact spacing between buttons */
+  }
+}

@@ -189,3 +189,87 @@
 .modal-button:hover {
     opacity: 0.9;
 }
+
+@media (max-width: 480px) {
+    .tasks-page .tasks-section {
+        padding: 20px;
+        padding-bottom: 20px;
+    }
+
+    .tasks-page .section-title {
+        font-size: 18px;
+    }
+
+    .tasks-page .tasks-container {
+        gap: 15px;
+        margin-top: 300px;
+    }
+
+    .tasks-page .task-group {
+        border-radius: 8px;
+    }
+
+    .tasks-page .task-item {
+        font-size: 13px;
+    }
+
+    .tasks-page .task-header {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+    }
+}
+
+/* Tablet (iPad Air) Specific Styles */
+@media (max-width: 1024px) and (min-width: 481px) {
+    .tasks-page .tasks-section {
+        padding: 40px; /* Reduce padding for better spacing on tablets */
+        padding-bottom: 40px;
+    }
+
+    .tasks-page .section-title {
+        font-size: 22px; /* Slightly smaller title for tablets */
+    }
+
+    .tasks-page .tasks-container {
+        gap: 20px; /* Adjust spacing between task groups */
+    }
+
+    .tasks-page .task-group {
+        flex-basis: 45%; /* Two columns on tablets */
+        margin: 10px;
+    }
+
+    .tasks-page .task-header {
+        font-size: 16px; /* Slightly smaller text for task headers */
+        padding: 12px;
+    }
+
+    .tasks-page .task-item {
+        font-size: 14px; /* Slightly smaller text for tasks */
+    }
+
+    .modal-content {
+        width: 80%; /* Adjust modal width for tablet screens */
+    }
+
+    .modal-content h3 {
+        font-size: 20px; /* Keep title readable */
+    }
+
+    .modal-content p {
+        font-size: 16px;
+    }
+}
+

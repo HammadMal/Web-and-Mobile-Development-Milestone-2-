@@ -206,3 +206,55 @@ body {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-page {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .login-page .logo-container {
+        width: 100%;
+    }
+
+    .login-page .login-logo {
+        width: 80%;
+    }
+
+    .login-page .login-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .login-page h2 {
+        font-size: 22px;
+    }
+
+    .login-page input[type="text"],
+    .login-page input[type="password"],
+    .login-page button {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-page h2 {
+        font-size: 18px;
+    }
+
+    .login-page .input-group label {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .login-page button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .login-page .forgot-password {
+        font-size: 12px;
+    }
+}

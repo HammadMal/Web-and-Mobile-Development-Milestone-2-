@@ -194,3 +194,35 @@
 .report-btn:hover {
     background-color: black;
 }
+
+
+@media (max-width: 768px) {
+    .attendance-content {
+        padding-top: 100px; /* Extra space for mobile navbar */
+    }
+
+    .rectangle-container {
+        gap: 15px; /* Smaller gap between rectangles */
+    }
+
+    .rectangle {
+        flex-basis: 45%;
+        height: 220px; /* Adjust height for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .attendance-content {
+        padding-top: 800px; /* Additional top padding for smaller devices */
+    }
+
+    .rectangle-container {
+        gap: 10px; /* Even smaller gap for compact view */
+    }
+
+    .rectangle {
+        flex-basis: 90%;
+        height: 190px; /* Further adjust height for small screens */
+        margin: 10px 0;
+    }
+}

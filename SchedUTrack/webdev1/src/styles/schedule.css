@@ -85,3 +85,56 @@
     transform: scale(0.95);
   }
   
+
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: 80px repeat(4, 1fr); /* Adjust grid for smaller screens */
+    }
+
+    .grid-item {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .course-block {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .button-container {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* For mobile phones (up to 767px) */
+@media (max-width: 767px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* Stack grid into 2 columns for mobile */
+    }
+
+    .grid-item {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+
+    .course-block {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 6px;
+    }
+
+    .button {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+}
