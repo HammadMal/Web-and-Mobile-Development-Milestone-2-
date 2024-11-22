@@ -1,10 +1,10 @@
 /* Main schedule container */
 .schedule-content {
     font-family: Arial, sans-serif;
-    padding: 20px;
+    padding: 110px;
     background-color: #f8f9fa;
     color: #333;
-    margin-top: 40px;
+    margin-top: 100px;
   }
   
   /* Timetable grid */
@@ -43,18 +43,22 @@
   /* Attendance colors */
   .course-block.green {
     background-color: #28a745; /* Green for >=95% attendance */
+    width: 200px;
   }
   
   .course-block.yellow {
     background-color: #ffc107; /* Yellow for >=85% attendance */
+    width: 200px;
   }
   
   .course-block.red {
     background-color: #dc3545; /* Red for >=75% attendance */
+    width: 200px;
   }
   
   .course-block.gray {
     background-color: #6c757d; /* Gray for <75% attendance */
+    width: 200px;
   }
   
   /* Buttons */
@@ -114,27 +118,28 @@
 
 /* For mobile phones (up to 767px) */
 @media (max-width: 767px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Stack grid into 2 columns for mobile */
-    }
+  .grid-container {
+      grid-template-columns: 1fr; /* Stack grid items in one column for mobile */
+  }
 
-    .grid-item {
-        font-size: 0.8rem;
-        padding: 6px;
-    }
+  .grid-item {
+      font-size: 0.8rem; /* Smaller font for readability on smaller screens */
+      padding: 6px;
+  }
 
-    .course-block {
-        font-size: 0.75rem;
-        padding: 6px;
-    }
+  .course-block {
+      font-size: 0.75rem;
+      padding: 6px;
+      text-align: center;
+  }
 
-    .button-container {
-        flex-direction: column; /* Stack buttons vertically */
-        gap: 6px;
-    }
+  .button-container {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 6px;
+  }
 
-    .button {
-        padding: 8px 10px;
-        font-size: 0.85rem;
-    }
+  .button {
+      padding: 8px 10px;
+      font-size: 0.85rem;
+  }
 }
