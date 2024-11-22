@@ -4,7 +4,7 @@
 .attendance-content {
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
-    background-color: white;
+    background-color: #f0e8ff;
     min-height: 100vh;
     padding: 20px;
 }
@@ -81,6 +81,22 @@
     font-size: 16px; /* Adjust font size if needed */
 }
 
+.info-box .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #800080;
+    background: none;
+    border: none;
+  }
+  
+  .info-box .close:hover {
+    color: #5c005c;
+  }
+  
+
 
 .color-dot {
     width: 15px;
@@ -114,6 +130,25 @@
 .recent-absences-btn:hover {
     transform: translateX(-50%) scale(1.1); /* Ensure it scales in place */
 }
+.threshold-btn {
+    position: fixed;
+    bottom: 100px; /* Place above the Recent Absences button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #800080;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px; /* Match font size of Recent Absences */
+    transition: transform 0.3s ease;
+  }
+  
+  .threshold-btn:hover {
+    transform: translateX(-50%) scale(1.1); /* Match hover behavior of Recent Absences */
+  }
+  
 
 /* Modal for Recent Absences */
 .modal {
@@ -208,6 +243,18 @@
     .rectangle {
         flex-basis: 45%;
         height: 220px; /* Adjust height for mobile */
+    }
+
+    .threshold-btn {
+        margin: 0 auto; /* Center the button horizontally */
+        padding: 15px; /* Add padding for more space inside the button */
+        display: block; /* Ensure the button behaves as a block-level element */
+    }
+    .recent-absences-btn {
+        margin: 0 auto; /* Center the button horizontally */
+        padding: 15px; /* Add padding for more space inside the button */
+        display: block;
+
     }
 }
 

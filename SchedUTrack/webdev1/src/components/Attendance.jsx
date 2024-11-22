@@ -4,8 +4,8 @@ import "../styles/attendance.css";
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [hovered, setHovered] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [thresholdVisible, setThresholdVisible] = useState(false);
   const [recentAbsences, setRecentAbsences] = useState([]);
 
   useEffect(() => {
@@ -51,17 +51,13 @@ function Attendance() {
     setSelectedCourse(selectedCourse === course ? null : course);
   };
 
-  const handleMouseEnter = () => {
-    if (!selectedCourse) setHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(false);
-  };
-
   const handleToggleModal = () => {
     setRecentAbsences(generateRecentAbsences());
     setModalVisible(!modalVisible);
+  };
+
+  const handleThresholdToggle = () => {
+    setThresholdVisible(!thresholdVisible);
   };
 
   const generateRecentAbsences = () => {
@@ -92,8 +88,6 @@ function Attendance() {
               key={course.coursename}
               className={`rectangle ${colorClass}`}
               onClick={() => toggleCourseDetails(course)}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
             >
               <h3>{course.coursename}</h3>
               {isExpanded && (
@@ -114,24 +108,36 @@ function Attendance() {
         })}
       </section>
 
+      {/* Threshold Button */}
+      <button className="threshold-btn" onClick={handleThresholdToggle}>
+        Threshold
+      </button>
+
+      {thresholdVisible && (
+  <div className="info-box">
+    <span className="close" onClick={() => setThresholdVisible(false)}>
+      &times;
+    </span>
+    <div className="info-item">
+      <div className="color-dot green-dot"></div> 95% or above attendance
+    </div>
+    <div className="info-item">
+      <div className="color-dot yellow-dot"></div> 85% - 94% attendance
+    </div>
+    <div className="info-item">
+      <div className="color-dot red-dot"></div> 75% - 84% attendance
+    </div>
+    <div className="info-item">
+      <div className="color-dot gray-dot"></div> Below 75% (Risk of withdrawal)
+    </div>
+  </div>
+)}
+
+
+      {/* Recent Absences Button */}
       <button className="recent-absences-btn" onClick={handleToggleModal}>
         Recent Absences
       </button>
-
-      <div className={`info-box ${hovered && !selectedCourse ? "" : "hidden"}`}>
-        <div className="info-item">
-          <div className="color-dot green-dot"></div> 95% or above attendance
-        </div>
-        <div className="info-item">
-          <div className="color-dot yellow-dot"></div> 85% - 94% attendance
-        </div>
-        <div className="info-item">
-          <div className="color-dot red-dot"></div> 75% - 84% attendance
-        </div>
-        <div className="info-item">
-          <div className="color-dot gray-dot"></div> Below 75% (Risk of withdrawal)
-        </div>
-      </div>
 
       {modalVisible && (
         <div className="modal" onClick={() => setModalVisible(false)}>
