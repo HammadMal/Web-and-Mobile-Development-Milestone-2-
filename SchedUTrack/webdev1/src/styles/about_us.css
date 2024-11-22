@@ -62,11 +62,13 @@
 }
 
 .contact-bar {
-    width: 100%;
+    width: 98.8vw; /* Ensures it spans the full width of the viewport */
     background: linear-gradient(to right, #6a11cb, #800080);
     color: white;
     padding: 25px 20px;
     text-align: center;
+    margin: 0; /* Removes any potential default margin */
+    box-sizing: border-box; /* Includes padding in width calculations */
 }
 
 .footer-content {
