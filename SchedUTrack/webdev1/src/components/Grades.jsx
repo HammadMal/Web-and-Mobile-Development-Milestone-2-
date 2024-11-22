@@ -75,9 +75,9 @@ function Grades() {
             case "C":
                 return "#ff5722"; // Deep orange
             case "C-":
-                return "red";
+                return "gray";
             case "F":
-                return "grey";
+                return "red";
             default:
                 return "transparent";
         }
