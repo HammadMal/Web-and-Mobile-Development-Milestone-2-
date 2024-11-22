@@ -128,6 +128,7 @@
   .settings-modal {
     width: 92%; /* Ensure the modal fills most of the screen width */
     padding: 15px; /* Compact padding */
+
   }
 
   .settings-modal h2 {

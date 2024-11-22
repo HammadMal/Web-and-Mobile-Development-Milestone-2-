@@ -137,15 +137,16 @@
 @media (max-width: 768px) {
     .content-wrapper {
         flex-direction: column; /* Stack content vertically */
-        padding: 10px; /* Compact padding */
+        padding: 30px; /* Compact padding */
         gap: 20px;
         margin-top: 30px; /* Adjust margin */
+        
     }
 
     .about-image {
         width: 90%; /* Full width for better visibility */
         margin: 0 auto 20px; /* Center align image */
-
+        margin-left: 20px;
         margin-top: 900px;
     }
 
@@ -153,6 +154,7 @@
         padding: 15px; /* Reduce padding */
         max-width: 100%; /* Use full width */
         text-align: center; /* Center-align text */
+        margin-right: 20px;
     }
 
     .about-text h1 {
@@ -169,8 +171,9 @@
     }
 
     .contact-bar {
-        padding: 15px;
+        padding: 5px;
         font-size: 14px; /* Smaller font size */
+
     }
 
     .contact-item {

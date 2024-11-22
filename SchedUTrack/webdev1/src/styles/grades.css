@@ -28,21 +28,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #555;
+    color: white;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #333; /* Set a default background color */
 }
 
-
 .gpa-box:hover {
-    background-color: #333;
-    color: #fff;
     transform: scale(1.1); /* Slightly increase size on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
 }
+
 
 .grades-table {
     width: 100%;
