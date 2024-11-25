@@ -92,7 +92,8 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 400px;
-    padding: 20px;
+    height: 600px;
+    padding: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     display: flex;
@@ -115,7 +116,7 @@
     border: none;
     font-size: 18px;
     cursor: pointer;
-    color: #888; /* Lighter color for better contrast */
+    color: black; /* Lighter color for better contrast */
 }
 
 .close-button:hover {
